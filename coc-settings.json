@@ -1,0 +1,20 @@
+{
+  "suggest.noselect": false,
+  "prettier.semi": false,
+  "prettier.trailingComma": "none",
+  "prettier.singleQuote": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "javascriptreact",
+    "typescript.tsx",
+    "graphql"
+  ],
+  "explorer.icon": {
+    "expanded": " ",
+    "collapsed": " ",
+    "enableNerdfont": true
+  }
+}
