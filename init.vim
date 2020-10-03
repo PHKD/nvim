@@ -10,7 +10,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim' " fuzzy find files
 Plug 'scrooloose/nerdcommenter'
-"Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-surround'
@@ -24,12 +24,16 @@ Plug 'easymotion/vim-easymotion'
 call plug#end()
 
 let mapleader=" "
-
 " movement insert mode 
 inoremap <M-h> <Left>
 inoremap <M-j> <Down>
 inoremap <M-k> <Up>
 inoremap <M-l> <Right>
+" resize window
+nnoremap <M-h> :vertical resize +5<CR>
+nnoremap <M-j> :resize +5<CR>
+nnoremap <M-k> :resize -5<CR>
+nnoremap <M-l> :vertical resize -5<CR>
 " explorer
 nmap <C-b> :CocCommand explorer<CR>
 " comment
@@ -66,7 +70,7 @@ let g:NERDTreeIgnore = ['^node_modules$']
 "let g:prettier#quickfix_enabled = 0
 "let g:prettier#quickfix_auto_focus = 0
 " prettier command for coc
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
+"command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " run prettier on save
 "let g:prettier#autoformat = 0
 "autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
@@ -80,6 +84,7 @@ noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
 noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
 set relativenumber
+set clipboard=unnamedplus
 "set nohlsearch
 set number
 set smarttab
@@ -154,7 +159,6 @@ nmap <Leader>f <Plug>(easymotion-overwin-f)
 
 " s{char}{char} to move to {char}{char}
 nmap s <Plug>(easymotion-overwin-f2)
-
 " Move to line
 map <Leader>l <Plug>(easymotion-bd-jk)
 nmap <Leader>l <Plug>(easymotion-overwin-line)
@@ -167,7 +171,7 @@ nmap <silent> <leader>c :sp<CR>
 nmap <silent> <leader>v :vsp<CR>
 " clear highlight
 nnoremap <silent> <leader>h :noh<CR>
-"buffer manage
+" buffer manage
 nnoremap <silent> <S-tab> :bprevious<CR>
 nnoremap <silent> <tab>   :bnext<CR>
 nnoremap <silent> <leader>d   :bd<CR>
