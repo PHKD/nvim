@@ -7,7 +7,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'voldikss/vim-floaterm'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
-Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 Plug 'ctrlpvim/ctrlp.vim' " fuzzy find files
 Plug 'scrooloose/nerdcommenter'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
@@ -19,7 +19,10 @@ Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'easymotion/vim-easymotion'
-
+" Plug 'tpope/vim-commentary'
+" Plug 'posva/vim-vue'
+Plug 'isRuslan/vim-es6'
+Plug 'leafOfTree/vim-vue-plugin'
 " Initialize plugin system
 call plug#end()
 
@@ -39,16 +42,25 @@ nmap <C-b> :CocCommand explorer<CR>
 " comment
 vmap <leader>/ <plug>NERDCommenterToggle
 nmap <leader>/ <plug>NERDCommenterToggle
+" function! Comment()
+  " if (mode() == "n" )
+    " execute "Commentary"
+  " else    
+    " execute "'<,'>Commentary"
+  " endif
+ " endfunction
+" nnoremap <silent> <leader>/ :call Comment()<CR>
+" vnoremap <silent> <leader>/ :call Comment()<CR>
+" autocmd FileType apache setlocal commentstring=#\<!---->//%s
 " airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-"let g:airline_theme='gruvbox'
+" let g:airline_theme='codedark'
 " open NERDTree automatically
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * NERDTree
-
 let g:NERDTreeGitStatusWithFlags = 1
 "let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 "let g:NERDTreeGitStatusNodeColorization = 1
@@ -89,13 +101,14 @@ set clipboard=unnamedplus
 set number
 set smarttab
 set cindent
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 " always uses spaces instead of tab characters
 set expandtab
 set encoding=utf-8
 set fileencoding=utf-8
 colorscheme gruvbox
+" colorscheme codedark
 
 " coc config
 let g:coc_global_extensions = [
@@ -105,14 +118,29 @@ let g:coc_global_extensions = [
   \ 'coc-eslint', 
   \ 'coc-prettier', 
   \ 'coc-json', 
+  \ 'coc-emmet', 
   \ 'coc-floaterm', 
   \ 'coc-explorer', 
+  \ 'coc-vetur',
+  \ 'coc-html',
+  \ 'coc-css',
   \ ]
 " Floaterm
-let g:floaterm_keymap_new    = '<F4>'
-let g:floaterm_keymap_prev   = '<F3>'
-let g:floaterm_keymap_next   = '<F2>'
+" let g:floaterm_wintype='normal'
+" let g:floaterm_height=6
+
 let g:floaterm_keymap_toggle = '<F1>'
+let g:floaterm_keymap_next   = '<F2>'
+let g:floaterm_keymap_prev   = '<F3>'
+let g:floaterm_keymap_new    = '<F4>'
+
+" Floaterm
+let g:floaterm_gitcommit='floaterm'
+let g:floaterm_autoinsert=1
+let g:floaterm_width=0.8
+let g:floaterm_height=0.8
+let g:floaterm_wintitle=0
+let g:floaterm_autoclose=1
 
 " explorer
 let g:coc_explorer_global_presets = {
@@ -148,7 +176,19 @@ let g:coc_explorer_global_presets = {
 \     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
 \   }
 \ }
+" vue plugin
+let g:vim_vue_plugin_load_full_syntax = 1
+autocmd FileType vue inoremap <buffer><expr> : InsertColon()
 
+function! InsertColon()
+  let tag = GetVueTag()
+  
+  if tag == 'template'
+    return ':'
+  else
+    return ': '
+  endif
+endfunction
 " Use preset argument to open it
 nmap <leader>ed :CocCommand explorer --preset .config/nvim<CR>
 nmap <leader>ef :CocCommand explorer --preset floating<CR>
@@ -176,9 +216,8 @@ nnoremap <silent> <S-tab> :bprevious<CR>
 nnoremap <silent> <tab>   :bnext<CR>
 nnoremap <silent> <leader>d   :bd<CR>
 " Swap line
-nnoremap <silent> <C-Down> ddp
-nnoremap <silent> <C-Up> ddkP
-
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 " List all presets
 nmap <leader>el :CocList explPresets<CR>
 " from readme
@@ -227,6 +266,13 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" search
+"nnoremap <leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>bs /<C-R>=escape(expand("<cWORD>"), "/")<CR><CR>
+" Git
+nmap <leader>gj :diffget //3<CR>
+nmap <leader>gf :diffget //2<CR>
+nmap <leader>gs :G<CR>
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
