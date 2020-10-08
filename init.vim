@@ -38,29 +38,16 @@ nnoremap <M-j> :resize +5<CR>
 nnoremap <M-k> :resize -5<CR>
 nnoremap <M-l> :vertical resize -5<CR>
 " explorer
-nmap <C-b> :CocCommand explorer<CR>
+nmap <C-b> :CocCommand explorer --quit-on-open<CR>
+
 " comment
 vmap <leader>/ <plug>NERDCommenterToggle
 nmap <leader>/ <plug>NERDCommenterToggle
-" function! Comment()
-  " if (mode() == "n" )
-    " execute "Commentary"
-  " else    
-    " execute "'<,'>Commentary"
-  " endif
- " endfunction
-" nnoremap <silent> <leader>/ :call Comment()<CR>
-" vnoremap <silent> <leader>/ :call Comment()<CR>
-" autocmd FileType apache setlocal commentstring=#\<!---->//%s
-" airline
+
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-" let g:airline_theme='codedark'
-" open NERDTree automatically
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * NERDTree
 let g:NERDTreeGitStatusWithFlags = 1
 "let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 "let g:NERDTreeGitStatusNodeColorization = 1
