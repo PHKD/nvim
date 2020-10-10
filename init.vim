@@ -19,24 +19,25 @@ Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'easymotion/vim-easymotion'
-" Plug 'tpope/vim-commentary'
-" Plug 'posva/vim-vue'
 Plug 'isRuslan/vim-es6'
 Plug 'leafOfTree/vim-vue-plugin'
 " Initialize plugin system
 call plug#end()
 
 let mapleader=" "
+
 " movement insert mode 
 inoremap <M-h> <Left>
 inoremap <M-j> <Down>
 inoremap <M-k> <Up>
 inoremap <M-l> <Right>
+
 " resize window
 nnoremap <M-h> :vertical resize +5<CR>
 nnoremap <M-j> :resize +5<CR>
 nnoremap <M-k> :resize -5<CR>
 nnoremap <M-l> :vertical resize -5<CR>
+
 " explorer
 nmap <C-b> :CocCommand explorer --quit-on-open<CR>
 
@@ -95,7 +96,6 @@ set expandtab
 set encoding=utf-8
 set fileencoding=utf-8
 colorscheme gruvbox
-" colorscheme codedark
 
 " coc config
 let g:coc_global_extensions = [
@@ -177,7 +177,7 @@ function! InsertColon()
   endif
 endfunction
 " Use preset argument to open it
-nmap <leader>ed :CocCommand explorer --preset .config/nvim<CR>
+nmap <leader>. :CocCommand explorer --preset .config/nvim<CR>
 nmap <leader>ef :CocCommand explorer --preset floating<CR>
 " easymotion
 " <Leader>f{char} to move to {char}
