@@ -21,11 +21,11 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'easymotion/vim-easymotion'
 Plug 'isRuslan/vim-es6'
 Plug 'leafOfTree/vim-vue-plugin'
+Plug 'posva/vim-vue'
 " Initialize plugin system
 call plug#end()
 
 let mapleader=" "
-
 " movement insert mode 
 inoremap <M-h> <Left>
 inoremap <M-j> <Down>
@@ -65,7 +65,6 @@ let g:NERDTreeGitStatusWithFlags = 1
 
 
 let g:NERDTreeIgnore = ['^node_modules$']
-
 " vim-prettier
 "let g:prettier#quickfix_enabled = 0
 "let g:prettier#quickfix_auto_focus = 0
