@@ -31,7 +31,10 @@ inoremap <M-h> <Left>
 inoremap <M-j> <Down>
 inoremap <M-k> <Up>
 inoremap <M-l> <Right>
-
+" Esc remap
+inoremap <M-;> <Esc>
+vnoremap <M-;> <Esc>
+nnoremap <M-;> <Esc>
 " resize window
 nnoremap <M-h> :vertical resize +5<CR>
 nnoremap <M-j> :resize +5<CR>
