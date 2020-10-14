@@ -22,6 +22,9 @@ Plug 'easymotion/vim-easymotion'
 Plug 'isRuslan/vim-es6'
 Plug 'leafOfTree/vim-vue-plugin'
 Plug 'posva/vim-vue'
+Plug 'digitaltoad/vim-pug'
+Plug 'iloginow/vim-stylus'
+Plug 'hail2u/vim-css3-syntax'
 " Initialize plugin system
 call plug#end()
 
@@ -80,7 +83,15 @@ let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclu
 " j/k will move virtual lines (lines that wrap)
 noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
 noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+setlocal iskeyword+=-
 
+" Css highlight
+augroup VimCSS3Syntax
+  autocmd!
+
+  autocmd FileType css setlocal iskeyword+=-
+augroup END
+" Setting
 set relativenumber
 set clipboard=unnamedplus
 "set nohlsearch
