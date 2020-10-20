@@ -179,10 +179,10 @@ autocmd FileType vue inoremap <buffer><expr> : InsertColon()
 function! InsertColon()
   let tag = GetVueTag()
   
-  if tag == 'template'
-    return ':'
-  else
+  if tag == 'script'
     return ': '
+  else
+    return ':'
   endif
 endfunction
 " Use preset argument to open it
