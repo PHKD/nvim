@@ -22,12 +22,12 @@ Plug 'easymotion/vim-easymotion'
 Plug 'isRuslan/vim-es6'
 Plug 'leafOfTree/vim-vue-plugin'
 Plug 'posva/vim-vue'
+Plug 'vim-syntastic/syntastic'
 Plug 'digitaltoad/vim-pug'
 Plug 'iloginow/vim-stylus'
 Plug 'hail2u/vim-css3-syntax'
 " Initialize plugin system
 call plug#end()
-
 let mapleader=" "
 " movement insert mode 
 inoremap <M-h> <Left>
@@ -41,12 +41,31 @@ nnoremap <M-k> :resize -5<CR>
 nnoremap <M-l> :vertical resize -5<CR>
 
 " explorer
-nmap <C-b> :CocCommand explorer --quit-on-open<CR>
+nmap <silent>ge :CocCommand explorer --quit-on-open<CR>
 
 " comment
-vmap <leader>/ <plug>NERDCommenterToggle
-nmap <leader>/ <plug>NERDCommenterToggle
-
+vmap <silent> <leader>/ <plug>NERDCommenterToggle
+nmap <silent> <leader>/ <plug>NERDCommenterToggle
+let g:ft = ''
+function! NERDCommenter_before()
+  if &ft == 'vue'
+    let g:ft = 'vue'
+    let stack = synstack(line('.'), col('.'))
+    if len(stack) > 0
+      let syn = synIDattr((stack)[0], 'name')
+      if len(syn) > 0
+        exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
+      endif
+    endif
+  endif
+endfunction
+function! NERDCommenter_after()
+  if g:ft == 'vue'
+    setf vue
+    let g:ft = ''
+  endif
+endfunction
+let g:vue_pre_processors = ['pug', 'scss', 'html', 'js', 'vue', 'css']
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -94,7 +113,7 @@ augroup END
 " Setting
 set relativenumber
 set clipboard=unnamedplus
-"set nohlsearch
+set nohlsearch
 set number
 set smarttab
 set cindent
@@ -104,6 +123,15 @@ set shiftwidth=4
 set expandtab
 set encoding=utf-8
 set fileencoding=utf-8
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 colorscheme gruvbox
 
 " coc config
@@ -122,8 +150,7 @@ let g:coc_global_extensions = [
   \ 'coc-css',
   \ ]
 " Floaterm
-" let g:floaterm_wintype='normal'
-" let g:floaterm_height=6
+ let g:floaterm_wintype='floating'
 
 let g:floaterm_keymap_toggle = '<F1>'
 let g:floaterm_keymap_next   = '<F2>'
@@ -131,7 +158,6 @@ let g:floaterm_keymap_prev   = '<F3>'
 let g:floaterm_keymap_new    = '<F4>'
 
 " Floaterm
-let g:floaterm_gitcommit='floaterm'
 let g:floaterm_autoinsert=1
 let g:floaterm_width=0.8
 let g:floaterm_height=0.8
@@ -174,8 +200,10 @@ let g:coc_explorer_global_presets = {
 \ }
 " vue plugin
 let g:vim_vue_plugin_load_full_syntax = 1
-autocmd FileType vue inoremap <buffer><expr> : InsertColon()
+let g:vim_vue_plugin_use_scss = 1
 
+autocmd FileType vue inoremap <buffer><expr> : InsertColon()
+"autocmd FileType vue vnoremap <buffer><expr> / OnChangeVueSubtype(subtype)
 function! InsertColon()
   let tag = GetVueTag()
   
@@ -185,6 +213,20 @@ function! InsertColon()
     return ':'
   endif
 endfunction
+
+"function! OnChangeVueSubtype(subtype)
+  "" echom 'subtype is '.a:subtype
+  "if a:subtype == 'html'
+    "setlocal commentstring=<!--%s-->
+    "setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
+  "elseif a:subtype =~ 'css'
+    "setlocal comments=s1:/*,mb:*,ex:*/ commentstring&
+  "else
+    "setlocal commentstring=//%s
+    "setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
+  "endif
+"endfunction
+
 " Use preset argument to open it
 nmap <leader>. :CocCommand explorer --preset .config/nvim<CR>
 nmap <leader>ef :CocCommand explorer --preset floating<CR>
@@ -295,10 +337,10 @@ augroup end
 command! -nargs=0 Format :call CocAction('format')
 
 " Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
 " use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 OR   :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
