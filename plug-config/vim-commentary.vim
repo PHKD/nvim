@@ -1,11 +1,16 @@
 " commentary
 function! Comment()
-  let subtype = GetVueSubtype()
   if (mode() == "n" )
-    :call OnChangeVueSubtype(subtype)
+      if &filetype ==# 'vue'
+        let subtype = GetVueSubtype()
+        :call OnChangeVueSubtype(subtype)
+      endif
     execute "Commentary"
   else    
-    :call OnChangeVueSubtype(subtype)
+      if &filetype ==# 'vue'
+        let subtype = GetVueSubtype()
+        :call OnChangeVueSubtype(subtype)
+      endif
     execute "'<,'>Commentary"
   endif
  endfunction
