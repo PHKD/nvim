@@ -1,6 +1,6 @@
 " Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
-
+Plug 'Shougo/context_filetype.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -9,7 +9,9 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-fugitive'
 Plug 'ctrlpvim/ctrlp.vim' " fuzzy find files
-Plug 'scrooloose/nerdcommenter'
+"Plug 'scrooloose/nerdcommenter'
+Plug 'suy/vim-context-commentstring'
+Plug 'tpope/vim-commentary'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'morhetz/gruvbox'
@@ -43,34 +45,38 @@ nnoremap <M-l> :vertical resize -5<CR>
 " explorer
 nmap <silent>ge :CocCommand explorer --quit-on-open<CR>
 
-" comment
-vmap <silent> <leader>/ <plug>NERDCommenterToggle
-nmap <silent> <leader>/ <plug>NERDCommenterToggle
-let g:ft = ''
-function! NERDCommenter_before()
-  if &ft == 'vue'
-    let g:ft = 'vue'
-    let stack = synstack(line('.'), col('.'))
-    if len(stack) > 0
-      let syn = synIDattr((stack)[0], 'name')
-      if len(syn) > 0
-        exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
-      endif
-    endif
+" commentary
+" autocmd FileType vue set commentstring=//\ %s
+function! Comment()
+  let subtype = GetVueSubtype()
+  if (mode() == "n" )
+    :call OnChangeVueSubtype(subtype)
+    execute "Commentary"
+  else    
+    :call OnChangeVueSubtype(subtype)
+    execute "'<,'>Commentary"
+  endif
+ endfunction
+vnoremap <silent> <leader>/ :call Comment()<CR>
+nnoremap <silent> <leader>/ :call Comment()<CR>
+
+function! OnChangeVueSubtype(subtype)
+  " echom 'subtype is '.a:subtype
+  if a:subtype == 'html'
+    setlocal commentstring=<!--%s-->
+    setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
+  else
+    setlocal commentstring=//%s
+    setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
   endif
 endfunction
-function! NERDCommenter_after()
-  if g:ft == 'vue'
-    setf vue
-    let g:ft = ''
-  endif
-endfunction
-let g:vue_pre_processors = ['pug', 'scss', 'html', 'js', 'vue', 'css']
+" let g:vue_pre_processors = ['pug', 'scss', 'html', 'js', 'vue', 'css']
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:NERDTreeGitStatusWithFlags = 1
+
 "let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 "let g:NERDTreeGitStatusNodeColorization = 1
 "let g:NERDTreeColorMapCustom = {
@@ -167,7 +173,7 @@ let g:floaterm_autoclose=1
 " explorer
 let g:coc_explorer_global_presets = {
 \   '.vim': {
-\     'root-uri': '~/.vim',
+\     'root-uri': '~/.config/nvim',
 \   },
 \   'tab': {
 \     'position': 'tab',
@@ -201,31 +207,6 @@ let g:coc_explorer_global_presets = {
 " vue plugin
 let g:vim_vue_plugin_load_full_syntax = 1
 let g:vim_vue_plugin_use_scss = 1
-
-autocmd FileType vue inoremap <buffer><expr> : InsertColon()
-"autocmd FileType vue vnoremap <buffer><expr> / OnChangeVueSubtype(subtype)
-function! InsertColon()
-  let tag = GetVueTag()
-  
-  if tag == 'script'
-    return ': '
-  else
-    return ':'
-  endif
-endfunction
-
-"function! OnChangeVueSubtype(subtype)
-  "" echom 'subtype is '.a:subtype
-  "if a:subtype == 'html'
-    "setlocal commentstring=<!--%s-->
-    "setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
-  "elseif a:subtype =~ 'css'
-    "setlocal comments=s1:/*,mb:*,ex:*/ commentstring&
-  "else
-    "setlocal commentstring=//%s
-    "setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
-  "endif
-"endfunction
 
 " Use preset argument to open it
 nmap <leader>. :CocCommand explorer --preset .config/nvim<CR>
