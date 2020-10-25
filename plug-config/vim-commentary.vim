@@ -20,3 +20,8 @@ function! OnChangeVueSubtype(subtype)
     setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
   endif
 endfunction
+
+" comments
+vnoremap <silent> <space>/ :call Comment()<CR>
+nnoremap <silent> <space>/ :call Comment()<CR>
+
