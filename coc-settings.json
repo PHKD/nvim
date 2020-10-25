@@ -1,12 +1,6 @@
 {
   "suggest.noselect": false,
-  "eslint.filetypes": [
-    "vue",
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
+  "eslint.filetypes": ["vue"],
   "eslint.options": {
     "extension": [".vue", ".js", ".html", ".jsx"]
   },

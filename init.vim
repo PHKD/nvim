@@ -9,7 +9,7 @@ source $HOME/.config/nvim/plug-config/vim-ctrlp.vim
 source $HOME/.config/nvim/plug-config/vim-explorer.vim
 source $HOME/.config/nvim/plug-config/vim-floaterm.vim
 " source $HOME/.config/nvim/plug-config/vim-prettier.vim
-source $HOME/.config/nvim/plug-config/vim-syntastic.vim
+" source $HOME/.config/nvim/plug-config/vim-syntastic.vim
 source $HOME/.config/nvim/plug-config/vim-vue.vim
 " General setting
 source $HOME/.config/nvim/general/function.vim
