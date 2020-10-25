@@ -9,9 +9,6 @@ nnoremap <M-h> :vertical resize +5<CR>
 nnoremap <M-j> :resize +5<CR>
 nnoremap <M-k> :resize -5<CR>
 nnoremap <M-l> :vertical resize -5<CR>
-" comments
-vnoremap <silent> <leader>/ :call Comment()<CR>
-nnoremap <silent> <leader>/ :call Comment()<CR>
 
 " explorer
 nmap <silent>ge :CocCommand explorer --quit-on-open<CR>
