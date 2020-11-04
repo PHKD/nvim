@@ -1,6 +1,5 @@
-set nocompatible
-syntax on
-setlocal iskeyword+=-
+set iskeyword+=-                      	" treat dash separated words as a word text object"
+syntax enable
 " Setting
 set relativenumber
 set clipboard=unnamedplus
