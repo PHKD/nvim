@@ -2,11 +2,16 @@
   "suggest.noselect": false,
   "eslint.filetypes": ["vue"],
   "eslint.options": {
-    "extension": [".vue", ".js", ".html", ".jsx"]
+    "extension": [".vue", ".js", ".html", ".jsx", ".ts"]
   },
+  "diagnostic.errorSign": " ",
+  "diagnostic.warningSign": " ",
+  "diagnostic.infoSign": "",
+  "diagnostic.hintSign": " ",
   "eslint.autoFixOnSave": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "typescript",
+    "javascript",
     "typescriptreact",
     "json",
     "javascriptreact",
@@ -17,5 +22,9 @@
     "expanded": " ",
     "collapsed": " ",
     "enableNerdfont": true
-  }
+  },
+  "bookmark.sign": "",
+  "codeLens.enable": true,
+  "list.indicator": ">",
+  "list.selectedSignText": "*"
 }

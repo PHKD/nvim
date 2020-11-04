@@ -28,10 +28,6 @@ Plug 'posva/vim-vue'
 Plug 'digitaltoad/vim-pug'
 Plug 'iloginow/vim-stylus'
 Plug 'hail2u/vim-css3-syntax'
+Plug 'mhinz/vim-startify'
 " Initialize plugin system
 call plug#end()
-
-autocmd VimEnter *
-  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \|   PlugInstall --sync | q
-  \| endif
