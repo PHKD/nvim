@@ -1,6 +1,7 @@
 " Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
 Plug 'Shougo/context_filetype.vim'
+Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -24,7 +25,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'isRuslan/vim-es6'
 Plug 'leafOfTree/vim-vue-plugin'
 Plug 'posva/vim-vue'
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
 Plug 'digitaltoad/vim-pug'
 Plug 'iloginow/vim-stylus'
 Plug 'hail2u/vim-css3-syntax'
@@ -46,14 +47,21 @@ nnoremap <M-l> :vertical resize -5<CR>
 nmap <silent>ge :CocCommand explorer --quit-on-open<CR>
 
 " commentary
-" autocmd FileType vue set commentstring=//\ %s
-function! Comment()
-  let subtype = GetVueSubtype()
-  if (mode() == "n" )
+autocmd FileType vue set commentstring=//\ %s
+function! SetVueLocalString()
+  if &filetype ==# 'vue'
+    let subtype = GetVueTag()
     :call OnChangeVueSubtype(subtype)
+  endif
+endfunction
+
+function! Comment()
+  " let subtype = GetVueSubtype()
+  if (mode() == "n" )
+    :call SetVueLocalString()
     execute "Commentary"
   else    
-    :call OnChangeVueSubtype(subtype)
+    :call SetVueLocalString()
     execute "'<,'>Commentary"
   endif
  endfunction
@@ -62,7 +70,7 @@ nnoremap <silent> <leader>/ :call Comment()<CR>
 
 function! OnChangeVueSubtype(subtype)
   " echom 'subtype is '.a:subtype
-  if a:subtype == 'html'
+  if a:subtype == 'template'
     setlocal commentstring=<!--%s-->
     setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
   else
@@ -133,10 +141,10 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 
 colorscheme gruvbox
 
