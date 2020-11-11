@@ -1,4 +1,3 @@
-" Plug in
 source $HOME/.config/nvim/plugin/plugin.vim
 " Plug config
 source $HOME/.config/nvim/plug-config/vim-airline.vim

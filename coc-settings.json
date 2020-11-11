@@ -1,13 +1,14 @@
 {
   "suggest.noselect": false,
+  "snippets.ultisnips.usePythonx": false,
   "eslint.filetypes": ["vue"],
   "eslint.options": {
     "extension": [".vue", ".js", ".html", ".jsx"]
   },
   "diagnostic.errorSign": " ",
-  "diagnostic.warningSign": " ",
+  "diagnostic.warningSign": "",
   "diagnostic.infoSign": "",
-  "diagnostic.hintSign": " ",
+  "diagnostic.hintSign": "",
   "eslint.autoFixOnSave": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "typescriptreact",
@@ -17,11 +18,13 @@
     "graphql"
   ],
   "explorer.icon": {
-    "expanded": " ",
-    "collapsed": " ",
+    "expanded": "",
+    "collapsed": "",
     "enableNerdfont": true
   },
-  "bookmark.sign": "",
+  "explorer.icon.enableNerdfont": true,
+  "explorer.icon.enableVimDevicons": false,
+  "bookmark.sign": "",
   "codeLens.enable": false,
   "list.indicator": ">",
   "list.selectedSignText": "*"
