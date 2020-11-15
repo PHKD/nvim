@@ -16,3 +16,4 @@ source $HOME/.config/nvim/general/setting.vim
 source $HOME/.config/nvim/mapping/key.vim
 " Themes
 source $HOME/.config/nvim/themes/color.vim
+let g:netrw_browsex_viewer="xdg-open"

@@ -1,7 +1,5 @@
 {
   "suggest.noselect": false,
-  "snippets.ultisnips.usePythonx": false,
-  "eslint.filetypes": ["vue"],
   "eslint.options": {
     "extension": [".vue", ".js", ".html", ".jsx"]
   },
@@ -17,13 +15,9 @@
     "typescript.tsx",
     "graphql"
   ],
-  "explorer.icon": {
-    "expanded": "",
-    "collapsed": "",
-    "enableNerdfont": true
-  },
+  "explorer.icon.expanded": "",
+  "explorer.icon.collapsed": "",
   "explorer.icon.enableNerdfont": true,
-  "explorer.icon.enableVimDevicons": false,
   "bookmark.sign": "",
   "codeLens.enable": false,
   "list.indicator": ">",

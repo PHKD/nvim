@@ -3,6 +3,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'Shougo/context_filetype.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-solargraph coc-tsserver coc-eslint coc-json coc-css'}
 Plug 'Shougo/neco-vim'
+Plug 'ashisha/image.vim'
 Plug 'neoclide/coc-neco'
 Plug 'cj/vim-webdevicons'
 Plug 'FortAwesome/Font-Awesome'
